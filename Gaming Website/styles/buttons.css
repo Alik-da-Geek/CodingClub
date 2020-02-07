@@ -1,0 +1,67 @@
+.sourceCode {
+    display: inline-block;
+    position: relative;
+    top: 1vw;
+    left: 10.4vw;
+}
+
+.buttons {
+    margin-top: 2vw;
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+    border: solid 2px #dfdfdf;
+    padding: 0.5vw 0.5vw;
+    margin: 0vw 0vw;
+    background: none;
+    transition: all ease 0.3s;
+    color: black;
+    display: inline-block;
+    vertical-align: center;
+}
+
+.sourceCode .link {
+    text-align: center;
+    font-size: 1vw;
+    width: 9vw;
+    height: auto;
+
+}
+
+.sourceCode .link:hover {
+    border: solid 2px black;
+    background: black;
+    color: white;
+    border-color: black;
+    transition: all ease 0.3s;
+}
+
+.buttons .link {
+    text-align: left;
+    font-size: 2vw;
+    width: auto;
+    height: auto;
+}
+
+.buttons .link:hover {
+    border: solid 2px black;
+    background: black;
+    color: white;
+    border-color: black;
+    transition: all ease 0.3s;
+}
+
+i {
+    border: solid black;
+    border-width: 0 0.3vw 0.3vw 0;
+    display: inline-block;
+    padding: 0.3vw;
+    vertical-align: middle;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
