@@ -3,7 +3,7 @@ int cols = 50;
 square[][] arr = new square[rows][cols];
 
 void setup() {
-  size(window.innerWidth,window.innerHeight*0.836);
+  size(window.innerWidth*0.9,window.innerHeight*0.836);
   colorMode(HSB);
   background(255);
   stroke(0);

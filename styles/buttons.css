@@ -3,6 +3,7 @@
     position: relative;
     top: 1vw;
     left: 10.4vw;
+    z-index: 4;
 }
 
 .buttons {
@@ -10,6 +11,10 @@
     text-align: center;
 }
 
+#leftSide{
+    left: 0;
+    right: 100%;
+}
 .link {
     text-decoration: none;
     border: solid 2px #dfdfdf;
