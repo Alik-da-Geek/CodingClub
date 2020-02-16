@@ -5,13 +5,13 @@ float deceleration=0.6, accX=1;
 
 int score=0;
 float padSpeed=0.5;
-boolean dead=false;
+boolean isDead=false;
 pad lastPad;
 private PVector pos, vel, acc;
 ArrayList<pad> pads=new ArrayList<pad>();
 
 void setup() {
-  size(800, 600);
+  size(window.innerWidth*0.5,window.innerHeight*0.836);
   background(245, 245, 220);
   pos= new PVector(width/2, height-50-ballRadius*2);
   vel= new PVector(0, 0);
@@ -22,7 +22,7 @@ void setup() {
 
 void draw() {
   paint();
-  if(!dead){
+  if(!isDead){
     move();
     movePads();
   } else {
@@ -36,7 +36,7 @@ void paint() {
   ellipse(pos.x, pos.y, ballRadius, ballRadius);
   fill(0);
   for (pad p : pads) {
-    rect(p.x(), p.y(), padWidth, padHeight);
+    rect(p.x, p.y, padWidth, padHeight);
   }
   textAlign(CENTER);
   textSize(16);
@@ -58,16 +58,16 @@ void move() {
   float sizeX=ballRadius+padWidth/2;
   float sizeY=ballRadius+padHeight/2;
   for (pad p : pads) {
-    float difX=Math.abs(p.x()+padWidth/2-pos.x);
-    float difY=Math.abs(p.y()+padHeight/2-pos.y);
+    float difX=Math.abs(p.x+padWidth/2-pos.x);
+    float difY=Math.abs(p.y+padHeight/2-pos.y);
     if (difX<=sizeX&&difY<=sizeY) {
       vel.y=-bounceY;
-      lastPad.x(p.x());
+      lastPad.x=p.x;
       lastPad.ID(p.ID());
     }
   }
   //check dead
-  if (pos.y>height) dead=true;
+  if (pos.y>height) isDead=true;
 
   pos.x+=vel.x;
   pos.y+=vel.y;
@@ -87,8 +87,8 @@ void movePads() {
   else padSpeed=0;
 
   for (int i=0; i<pads.size(); i++) {
-    pads.get(i).addY(padSpeed);
-    if (pads.get(i).y()>height) {
+    pads.get(i).y+=padSpeed;
+    if (pads.get(i).y>height) {
       pads.remove(i);
       i--;
       score++;
@@ -97,7 +97,6 @@ void movePads() {
   while (pads.size()<numPads) {
     pads.add(new pad((float)Math.random()*(width-padWidth), 0));
   }
-  System.out.println(padSpeed);
 }
 void dead() {
   fill(0);
@@ -106,9 +105,25 @@ void dead() {
   text("ya died",width/2,height/2-75);
   text("press space to play again", width/2, height/2);
   if(keyCode==32){
-    dead=false;
+    isDead=false;
     score=0;
     while(pads.size()>0) pads.remove(pads.size()-1);
     setup();
+  }
+}
+
+public class pad {
+  private float x, y;
+  private int id;
+  public pad(float x1, float y1) {
+    this.x=x1;
+    this.y=y1;
+    this.id=(int)(Math.random()*1000);
+  }
+  public int ID(){
+    return this.id;
+  }
+  public void ID(int a){
+    this.id=a;
   }
 }
