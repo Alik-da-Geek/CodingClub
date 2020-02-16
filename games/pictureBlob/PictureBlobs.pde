@@ -1,4 +1,4 @@
-/* @pjs preload="westy.png"; */
+/* @pjs preload="/assets/westy.png"; */
 
 PImage img; 
 int interval;
@@ -7,7 +7,7 @@ ArrayList<Circle> circles;
 void setup() {
   size(800, 600);
   circles = new ArrayList<Circle>();
-  img = loadImage("westy.png");
+  img = loadImage("/assets/westy.png");
   img.resize(width, height);
   //Use interval to change the resolution (lower number = higher resolution)
   interval = 12;
