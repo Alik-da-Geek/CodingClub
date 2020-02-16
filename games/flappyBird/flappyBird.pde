@@ -17,7 +17,7 @@ SpeedUp speed;
 void setup() {
   player=loadImage("data/flappyBird.png");
   frameRate(60);
-  size(window.innerWidth*0.5, window.innerHeight*0.836);
+  size(window.innerWidth*0.65, window.innerHeight*0.836);
   y=height/2;
   x=width/4;
   alive=true;
@@ -193,7 +193,7 @@ public class Pipe {
   public float w=50, spacing=150;
   Pipe() {
     x=width+w;
-    yTop=random(height/6,height/5*3);
+    yTop=random(height/8,height/5*3);
     yBottom=yTop+spacing;
   }
   void move(float velX) {
