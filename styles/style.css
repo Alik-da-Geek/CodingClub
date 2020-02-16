@@ -21,6 +21,18 @@
     line-height: 2.3vw;
 }
 
+#homeImage{
+    display: block;
+    width: 40vw;
+    height: auto;
+    margin: auto;
+    padding: 1.5vw 0px;
+}
+
+#homeImageContainer{
+    width: 100%;
+}
+
 @media screen and (max-width: 820px) {
     .container {
         width: 48%;
