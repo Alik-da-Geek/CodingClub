@@ -7,7 +7,6 @@ void setup() {
   size(window.innerWidth*0.95-window.innerWidth*0.95%boxSize,window.innerHeight*0.836-window.innerHeight*0.836%boxSize);
   frameRate(25);
   textAlign(CENTER);
-  textSize(100);
   background(0);
   noStroke();
   a = new Apple(boxSize);
@@ -20,7 +19,10 @@ void draw() {
     a.update();
     s.update();
   } else {
+    textSize(100);
     text(score, width/2, height/2);
+    textSize(25);
+    text("Press SPACE to try again", width/2, height/2+30)
   }
 }
 
@@ -31,7 +33,10 @@ void keyPressed() {
     else if (key == 'a') s.direct(2);
     else if (key == 's') s.direct(3);
   } else {
-    if (key == ' ') dead = false; 
+    if (key == ' ' && dead) {
+      dead = false; 
+      score = 0;
+    }
   }
 }
 
