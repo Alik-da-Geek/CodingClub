@@ -1,9 +1,9 @@
-int rows = 25;
-int cols = 50;
+int rows = 40;
+int cols = 80;
 square[][] arr = new square[rows][cols];
 
 void setup() {
-  size(window.innerWidth*0.9,window.innerHeight*0.836);
+  size(window.innerWidth*0.95,window.innerHeight*0.836);
   colorMode(HSB);
   background(255);
   stroke(0);
