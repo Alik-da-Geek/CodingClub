@@ -4,7 +4,7 @@ int boxSize = 20, score = 0;
 boolean dead = false;
 
 void setup() {
-  size(600,600);
+  size(window.innerWidth*0.95-window.innerWidth*0.95%boxSize,window.innerHeight*0.836-window.innerHeight*0.836%boxSize);
   frameRate(25);
   textAlign(CENTER);
   textSize(100);
@@ -108,10 +108,10 @@ public class Snake {
   }
 
   public PVector checkOut(PVector pos) {
-    if (pos.x == -size) pos.x = width-size;
-    if (pos.x == width) pos.x = 0;
-    if (pos.y == -size) pos.y = height-size;
-    if (pos.y == width) pos.y = 0;
+    if (pos.x <= -size) pos.x = width-size;
+    if (pos.x >= width) pos.x = 0;
+    if (pos.y <= -size) pos.y = height-size;
+    if (pos.y >= height) pos.y = 0;
     return pos;
   }
 
