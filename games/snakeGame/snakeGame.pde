@@ -1,6 +1,6 @@
 Apple a;
 Snake s;
-int size = 20, score = 0;
+int boxSize = 20, score = 0;
 boolean dead = false;
 
 void setup() {
@@ -10,8 +10,8 @@ void setup() {
   textSize(100);
   background(0);
   noStroke();
-  a = new Apple(size);
-  s = new Snake(size);
+  a = new Apple(boxSize);
+  s = new Snake(boxSize);
 }
 
 void draw() {
@@ -61,14 +61,14 @@ public class Snake {
 
   private ArrayList<PVector> posList;
   private int size, frames = 0, facing; //0 = right, 1 = up, 2 = left, 3 = down
-  private boolean grow;
+  private boolean toGrow;
 
   public Snake(int size) {
     posList = new ArrayList<PVector>();
     this.size = size;
     posList.add(new PVector(300, 300));
     facing = 0;
-    grow = false;
+    toGrow = false;
   }
 
   public void update() {
@@ -76,26 +76,26 @@ public class Snake {
       fill(0, 255, 0);
       move(facing);
       if (frames < 0) frames = 0;
-      if (posList.get(0) == a.getPos()) grow();
       for (PVector p : posList) {
         rect(p.x, p.y, size, size);
-        if (p.equals(a.getPos())) grow();
-        if (posList.indexOf(p) != posList.lastIndexOf(p)) die();
+        if (PVector.dist(p,a.getPos()) < 3) grow();
+        if (PVector.dist(posList.get(0),p) < 20 && !p.equals(posList.get(0))) die();
       }
     }
   }
 
   public void move(int f) {
     PVector pos;
-    if (f == 0) pos = new PVector(posList.get(0).copy().x+size, posList.get(0).copy().y);
-    else if (f == 1) pos = new PVector(posList.get(0).copy().x, posList.get(0).copy().y-size);
-    else if (f == 2) pos = new PVector(posList.get(0).copy().x-size, posList.get(0).copy().y);
-    else pos = new PVector(posList.get(0).copy().x, posList.get(0).copy().y+size);
+    PVector head = new PVector(posList.get(0).x, posList.get(0).y);
+    if (f == 0) pos = new PVector(head.x+size, head.y);
+    else if (f == 1) pos = new PVector(head.x, head.y-size);
+    else if (f == 2) pos = new PVector(head.x-size, head.y);
+    else pos = new PVector(head.x, head.y+size);
     posList.add(0, checkOut(pos));
-    if (!grow) {
+    if (!toGrow) {
       posList.remove(posList.size()-1);
     } else {
-      grow = false;
+      toGrow = false;
     }
     frames--;
   }
@@ -118,7 +118,7 @@ public class Snake {
   public void grow() {
     a = new Apple(size);
     score++;
-    grow = true;
+    toGrow = true;
   }
 
   public void die() {
