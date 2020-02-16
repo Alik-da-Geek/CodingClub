@@ -1,42 +1,23 @@
-/* @pjs preload="data/CollisionSound.wav"; */
-/* @pjs preload="data/InvincibilitySound.wav"; */
-/* @pjs preload="data/JumpSound.wav"; */
-/* @pjs preload="data/SlowMotionSound.wav"; */
-/* @pjs preload="data/SpeedUpSound.wav"; */
 /* @pjs preload="data/flappyBird.png"; */
-/* @pjs preload="data/invincible.png"; */
-/* @pjs preload="data/slowMo.png"; */
-/* @pjs preload="data/speedUp.png"; */
 
-
-import processing.sound.*;
 float x, y, r=25;
 float velY=0, accY=0.25, upBoost=-7;
 float velPipes=-3;
 int score;
-PImage player, invincibleImg, slowMoImg, speedUpImg;
+PImage player;
 boolean up=false, alive=true;
 boolean slowMoPowerup=false, slowMo=false;
 boolean invinciblePowerup=false, invincible=false;
 boolean speedUpPowerup=false, speedUp=false;
-SoundFile invincibleSound, slowMoSound, speedUpSound, collisionSound, jumpSound;
 ArrayList<Pipe> pipes;
 int slowMoFrame, invincibleFrame, speedUpFrame;
 SlowMo slow;
 Invincible inv;
 SpeedUp speed;
 void setup() {
-  player=loadImage("flappyBird.png");
-  invincibleImg=loadImage("invincible.png");
-  slowMoImg=loadImage("slowMo.png");
-  speedUpImg=loadImage("speedUp.png");
-  invincibleSound= new SoundFile(this, "InvincibilitySound.wav");
-  slowMoSound= new SoundFile(this, "SlowMotionSound.wav");
-  speedUpSound= new SoundFile(this, "SpeedUpSound.wav");
-  collisionSound=new SoundFile(this, "CollisionSound.wav");
-  jumpSound=new SoundFile(this, "JumpSound.wav");
+  player=loadImage("data/flappyBird.png");
   frameRate(60);
-  size(window.innerHeight*0.836, window.innerHeight*0.836);
+  size(window.innerWidth*0.836,window.innerHeight*0.836);
   y=height/2;
   x=width/4;
   alive=true;
@@ -62,7 +43,7 @@ void draw() {
   } else {
     dead();
   }
-  score();
+  showScore();
 }
 void move() {
   velY+=accY;
@@ -99,10 +80,8 @@ void movePipes() {
 void collide() {
   if (y-r<-5) {
     alive=false;
-    collisionSound.play();
   } else if (y+r>height/8*7+5) {
     alive=false;
-    collisionSound.play();
   } else {
     for (int i=0; i<pipes.size(); i++) {
       Pipe p= pipes.get(i);
@@ -110,13 +89,12 @@ void collide() {
         if (x==p.x-p.w/2) score+=10;
         if (y-r/2<p.yTop||y+r/2>p.yBottom) {
           alive=false;
-          collisionSound.play();
         }
       }
     }
   }
 }
-void score() {
+void showScore() {
   fill(0);
   textSize(25);
   textAlign(CENTER, TOP);
@@ -130,9 +108,9 @@ void powerups() {
   //slow motion
   if (slowMoPowerup) {
     slow.move(velPipes*2);
-    image(slowMoImg, slow.x-slow.r/2, slow.y-slow.r/2, slow.r, slow.r);
+    fill(#3a17ff);
+    ellipse(slow.x-slow.r/2, slow.y-slow.r/2, slow.r, slow.r);
     if (slow.collide(x, y, r)) {
-      slowMoSound.play();
       frameRate(30);
       slowMoFrame=frameCount;
       slowMoPowerup=false;
@@ -147,15 +125,15 @@ void powerups() {
     slowMo=false;
   } else if (slowMo) {
     fill(0);
-    int a=15+(slowMoFrame-frameCount)/10;
-    text("slow mo: "+a, width/2, 50);
+    int a=(int)(15+(slowMoFrame-frameCount)/10);
+    text("slow mo: " + a, width/2, 50);
   }
   //invincible
   if (invinciblePowerup) {
-    image(invincibleImg, inv.x-inv.r/2-4, inv.y-inv.r/2+2, inv.r, inv.r);
+    fill(#ba4aff);
+    ellipse(inv.x-inv.r/2, inv.y-inv.r/2, inv.r, inv.r);
     inv.move(velPipes*2);
     if (inv.collide(x, y, r)) {
-      invincibleSound.play();
       invincibleFrame=frameCount;
       invinciblePowerup=false;
       invincible=true;
@@ -169,15 +147,15 @@ void powerups() {
     invincible=false;
   } else if (invincible) {
     fill(0);
-    int a=15+(invincibleFrame-frameCount)/10;
+    int a=(int)(15+(invincibleFrame-frameCount)/10);
     text("invincible: "+a, width/2, 50);
   }
   //speed up
   if (speedUpPowerup) {
-    image(speedUpImg, speed.x-speed.r/2-3, speed.y-speed.r/2+1, speed.r, speed.r);
+    fill(#ff1717);
+    ellipse(speed.x-speed.r/2, speed.y-speed.r/2, speed.r, speed.r);
     speed.move(velPipes*2);
     if (speed.collide(x, y, r)) {
-      speedUpSound.play();
       frameRate(90);
       speedUpFrame=frameCount;
       speedUpPowerup=false;
@@ -192,7 +170,7 @@ void powerups() {
     speedUp=false;
   } else if (speedUp) {
     fill(0);
-    int a=20+(speedUpFrame-frameCount)/10;
+    int a= (int)(20+(speedUpFrame-frameCount)/10);
     text("speed up: "+a, width/2, 50);
   }
   //reset speed
@@ -208,7 +186,6 @@ void dead() {
 void keyPressed() {
   if (keyCode==UP&&alive) {
     velY=upBoost;
-    jumpSound.play();
   }
   if (key=='r') setup();
 }
@@ -218,7 +195,7 @@ public class Pipe {
   public float w=50, spacing=150;
   Pipe() {
     x=width+w;
-    yTop=random(width/6,width/5*3);
+    yTop=random(height/6,height/5*3);
     yBottom=yTop+spacing;
   }
   void move(float velX) {
