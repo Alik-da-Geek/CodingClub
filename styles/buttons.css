@@ -54,7 +54,7 @@
 
 .buttons .link:hover {
     border: solid 2px black;
-    background: black;
+    background: #00583d;
     color: white;
     border-color: black;
     transition: all ease 0.3s;

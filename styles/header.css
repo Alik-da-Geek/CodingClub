@@ -1,6 +1,6 @@
 #header {
     z-index: 100;
-    background-color: #f1f1f1;
+    background-color: #00583d;
     position: fixed;
     top: 0;
     width: 100%;
@@ -11,7 +11,7 @@
     font-size: 2vw;
     padding: 0.5vw;
     text-align: center;
-    color: black;
+    color: white;
     font-weight: bold;
     transition: 0.3s;
     /* theme font below */
@@ -21,7 +21,7 @@
 .nav {
     list-style: none;
     text-align: center;
-    background-color: grey;
+    background-color: #a3a2a2;
 }
 
 .nav li {
@@ -41,5 +41,5 @@
 
 .nav a:hover {
     /* theme color below */
-    background-color: #f46842;
+    background-color: #00583d;
 }
