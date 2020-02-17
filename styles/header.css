@@ -39,11 +39,6 @@
     text-transform: uppercase;
 }
 
-@media screen and (max-width:460px) {
-    .nav a {
-    }
-}
-
 .nav a:hover {
     /* theme color below */
     background-color: #f46842;
